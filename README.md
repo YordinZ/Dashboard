@@ -1,73 +1,184 @@
-# Welcome to your Lovable project
+# 📊 FacturaIQ – Dashboard Analítico Inteligente
 
-## Project info
+FacturaIQ es una plataforma de analítica de facturación que permite cargar archivos CSV y transformarlos en dashboards interactivos, KPIs estratégicos y reportes automáticos.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+El sistema incluye autenticación segura con JWT, backend en Node.js y base de datos PostgreSQL en Neon.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Demo
 
-**Use Lovable**
+Frontend: (agregar cuando lo subas a GitHub Pages)  
+Backend API: (agregar cuando lo despliegues)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+# 🧠 Características Principales
 
-**Use your preferred IDE**
+## 🔐 Autenticación
+- Registro de usuarios
+- Login con validación real
+- JWT (JSON Web Token)
+- Rutas protegidas
+- Manejo de roles (estructura lista para escalar)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📂 Carga de CSV
+- Subida dinámica de archivos
+- Procesamiento en el cliente
+- Detección automática de columnas
+- Normalización de datos
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📈 Dashboard Analítico
+- KPIs principales
+- Tendencias temporales
+- Productos más vendidos
+- Días pico y días bajos
+- Visualizaciones interactivas
 
-Follow these steps:
+## 📄 Reportes
+- Generación automática de reportes
+- Exportación en CSV / PDF
+- Análisis resumido
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 🏗 Arquitectura del Proyecto
 
-# Step 3: Install the necessary dependencies.
-npm i
+FacturaIQ/
+│
+├── backend/ → API Express + PostgreSQL + JWT
+│
+├── src/ → Frontend React + Vite + Tailwind
+│
+└── public/
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+
+---
+
+# 🖥 Frontend
+
+### Tecnologías utilizadas:
+
+- React
+- TypeScript
+- Vite
+- TailwindCSS
+- Framer Motion
+- Lucide Icons
+- React Router
+- Context API
+
+### Estructura clave:
+
+- `ProtectedRoute.tsx` → Protección de rutas
+- `LoginPage.tsx` → Autenticación
+- `Dashboard.tsx` → Visualización de datos
+- `Upload.tsx` → Subida y procesamiento de CSV
+- `DataContext.tsx` → Manejo global de datos
+
+---
+
+# ⚙ Backend
+
+Ubicación: `/backend`
+
+### Tecnologías utilizadas:
+
+- Node.js
+- Express
+- PostgreSQL
+- Neon Database
+- JWT
+- bcrypt
+- dotenv
+- Helmet
+- CORS
+
+---
+
+## 🔐 Autenticación JWT
+
+El backend genera un token firmado con:
+
+```js
+jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" })
+```
+---
+
+# 🗄 Base de Datos
+Base de datos: PostgreSQL (Neon)
+
+Tabla principal:
+```js
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  role TEXT DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# 🔧 Instalación Local
+1️⃣ Clonar repositorio
+git clone https://github.com/tu_usuario/facturaiq.git
+cd facturaiq
 
-**Use GitHub Codespaces**
+2️⃣ Frontend
+npm install
+npm run dev
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Frontend correrá en:
+http://localhost:8080
 
-## What technologies are used for this project?
+3️⃣ Backend
+cd backend
+npm install
+node src/server.js
 
-This project is built with:
+Backend correrá en:
+http://localhost:4000
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+# 🔑 Variables de Entorno
+-Backend (.env)
+DATABASE_URL=postgresql://...
+JWT_SECRET=super_secret_random_string
+CORS_ORIGIN=http://localhost:8080
+PORT=4000
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+-Frontend (.env)
+VITE_API_URL=http://localhost:4000
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+# 🌍 Deploy
+Frontend
+GitHub Pages
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Backend
+Render / Railway (recomendado)
+Neon PostgreSQL como base de datos
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+# 🔐 Seguridad Implementada
+Hash de contraseñas con bcrypt
+JWT firmado
+Helmet (headers de seguridad)
+CORS configurado
+Variables protegidas con dotenv
+
+---
+
+# 🧩 Futuras Mejoras
+Middleware global de autenticación
+Roles admin
+Dashboard multiusuario
+Persistencia histórica de CSV
+Integración OAuth (Google/GitHub)
+Cookies httpOnly para mayor seguridad
