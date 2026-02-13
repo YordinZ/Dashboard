@@ -1,0 +1,214 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 220 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 10%;
+
+    --primary: 190 90% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 25% 10%;
+
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 10% 50%;
+
+    --accent: 160 70% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 190 90% 42%;
+
+    --radius: 0.75rem;
+
+    --chart-1: 190 90% 42%;
+    --chart-2: 160 70% 40%;
+    --chart-3: 35 92% 55%;
+    --chart-4: 280 65% 55%;
+    --chart-5: 0 72% 55%;
+
+    --sidebar-background: 220 25% 8%;
+    --sidebar-foreground: 220 15% 75%;
+    --sidebar-primary: 190 90% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 14%;
+    --sidebar-accent-foreground: 220 15% 90%;
+    --sidebar-border: 220 20% 16%;
+    --sidebar-ring: 190 90% 42%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(190, 90%, 42%), hsl(160, 70%, 40%));
+    --gradient-warm: linear-gradient(135deg, hsl(35, 92%, 55%), hsl(0, 72%, 55%));
+    --gradient-surface: linear-gradient(180deg, hsl(220, 25%, 8%), hsl(220, 22%, 12%));
+
+    --shadow-card: 0 1px 3px 0 hsl(220 25% 10% / 0.06), 0 1px 2px -1px hsl(220 25% 10% / 0.06);
+    --shadow-elevated: 0 10px 25px -5px hsl(220 25% 10% / 0.1), 0 8px 10px -6px hsl(220 25% 10% / 0.08);
+
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  .dark {
+    --background: 220 25% 7%;
+    --foreground: 220 15% 90%;
+
+    --card: 220 22% 10%;
+    --card-foreground: 220 15% 90%;
+
+    --popover: 220 22% 10%;
+    --popover-foreground: 220 15% 90%;
+
+    --primary: 190 90% 50%;
+    --primary-foreground: 220 25% 5%;
+
+    --secondary: 220 20% 16%;
+    --secondary-foreground: 220 15% 85%;
+
+    --muted: 220 20% 14%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 160 70% 45%;
+    --accent-foreground: 220 25% 5%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 16%;
+    --input: 220 20% 16%;
+    --ring: 190 90% 50%;
+
+    --chart-1: 190 90% 50%;
+    --chart-2: 160 70% 45%;
+    --chart-3: 35 92% 60%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 0 72% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .gradient-surface {
+    background: var(--gradient-surface);
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-elevated {
+    @apply bg-card/90 backdrop-blur-xl border border-border/50;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer base {
+  /* ✅ Fix: tu login usa --primary-glow pero tu CSS no lo tenía */
+  :root {
+    --primary-glow: 160 70% 40%;
+  }
+
+  .dark {
+    --primary-glow: 160 70% 45%;
+  }
+
+  /* ✅ Tema verde SOLO para el login (no afecta dashboard) */
+  .login-theme {
+    --primary: 145 63% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 160 70% 38%;
+
+    --secondary: 145 20% 92%;
+    --secondary-foreground: 220 25% 10%;
+
+    --muted: 150 10% 94%;
+    --muted-foreground: 220 10% 50%;
+
+    --border: 150 10% 88%;
+    --input: 150 10% 88%;
+    --ring: 145 63% 42%;
+  }
+
+  .dark .login-theme {
+    --primary: 145 63% 45%;
+    --primary-glow: 160 70% 42%;
+
+    --secondary: 150 15% 18%;
+    --muted: 150 10% 18%;
+    --border: 150 10% 20%;
+    --input: 150 10% 20%;
+    --ring: 145 63% 45%;
+  }
+}
+
