@@ -88,6 +88,7 @@ Ubicación: `/backend`
 - Express
 - PostgreSQL
 - Neon Database
+- Railway
 - JWT
 - bcrypt
 - dotenv
@@ -118,6 +119,20 @@ CREATE TABLE users (
   role TEXT DEFAULT 'user',
   created_at TIMESTAMP DEFAULT NOW()
 );
+```
+
+---
+
+# 🔗 Conexión entre Neon y Railway
+Este backend está desplegado en Railway y se conecta a una base de datos PostgreSQL en Neon utilizando variables de entorno seguras.
+
+La arquitectura es la siguiente:
+```js
+Frontend (GitHub Pages)
+        ↓
+Backend (Railway - Node/Express)
+        ↓
+Base de Datos (Neon PostgreSQL)
 ```
 
 ---
