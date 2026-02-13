@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { DataProvider } from "@/contexts/DataContext";
 
 import AppSidebar from "@/components/AppSidebar";
@@ -33,30 +33,28 @@ const App = () => (
       <Toaster />
       <Sonner />
       <DataProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" replace />} />
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" replace />} />
 
-            <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-            {/* Rutas protegidas + layout con sidebar */}
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="/home" element={<Index />} />
-              <Route path="/upload" element={<Upload />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/reports" element={<Reports />} />
-            </Route>
+          {/* Rutas protegidas + layout con sidebar */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="/home" element={<Index />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/reports" element={<Reports />} />
+          </Route>
 
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </DataProvider>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,3 +1,4 @@
+// backend/src/server.js
 require("dotenv").config();
 require("./db");
 
@@ -7,18 +8,42 @@ const helmet = require("helmet");
 
 const app = express();
 
-app.use(helmet());
-app.use(express.json());
+app.set("trust proxy", 1);
 
-// ✅ CORS DEBE IR ANTES DE LAS RUTAS
 app.use(
-  cors({
-    origin: (process.env.CORS_ORIGIN || "").split(",").filter(Boolean),
-    credentials: true,
+  helmet({
+    crossOriginResourcePolicy: false,
   })
 );
 
-// Ahora sí las rutas
+app.use(express.json());
+
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.length === 0) {
+        return callback(new Error("CORS_ORIGIN not configured"), false);
+      }
+
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked for origin: ${origin}`), false);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// ✅ FIX: Express 5 no acepta "*" aquí
+app.options(/.*/, cors());
+
 const authRouter = require("./auth");
 app.use("/auth", authRouter);
 
@@ -30,6 +55,7 @@ app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(process.env.PORT || 4000, () => {
-  console.log("API running on http://localhost:4000");
+const PORT = Number(process.env.PORT) || 4000;
+app.listen(PORT, () => {
+  console.log(`API running on port ${PORT}`);
 });
