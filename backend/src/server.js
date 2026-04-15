@@ -41,7 +41,6 @@ app.use(
   })
 );
 
-// ✅ FIX: Express 5 no acepta "*" aquí
 app.options(/.*/, cors());
 
 const authRouter = require("./auth");
